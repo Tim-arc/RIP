@@ -1,0 +1,96 @@
+/* Общие стили для body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Стили для секции */
+.section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Стили для заголовка */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Стили для контактов */
+.contacts {
+    margin-bottom: 20px;
+}
+
+.contacts img {
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+}
+
+.contacts h2 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.contacts span {
+    font-size: 16px;
+}
+
+/* Стили для списка друзей */
+.contacts ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contacts li {
+    margin-bottom: 10px;
+}
+
+.contacts li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.contacts li a:hover {
+    text-decoration: underline;
+}
+
+/* Стили для форм */
+form {
+    margin-bottom: 20px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Стили для кнопок */
+.find_users .button,
+.sign_out .button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
