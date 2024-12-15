@@ -79,6 +79,8 @@ public class UserService {
         return userRepository.findUsersByIdNotIn(friendsIds);
     }
 
+
+
     public List<Long> getUsersFriendsIds(Long userId) {
         List<Long> friendsIds = new ArrayList<Long>();
         for (User friends :

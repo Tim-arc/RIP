@@ -5,6 +5,8 @@ import com.project.course_project_1.entity.User;
 import com.project.course_project_1.service.DialogService;
 import com.project.course_project_1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +24,11 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/messages/send")
+    @PostMapping("/messages/sendMessage")
     public String sendMessage(@RequestParam Long senderId, @RequestParam Long receiverId, @RequestParam String content, Model model) {
-        User sender = userService.findUserById(senderId);
-        User receiver = userService.findUserById(receiverId);
-        Message message = dialogService.sendMessage(sender, receiver, content);
+        Message message = dialogService.sendMessage(senderId, receiverId, content);
         model.addAttribute("message", message);
-        return "messageSent"; // Предполагается, что у вас есть Thymeleaf шаблон messageSent.html
+        return "redirect:/dialogs/" + message.getDialog().getId();
     }
 
     @GetMapping("/messages/between")
@@ -37,6 +37,6 @@ public class MessageController {
         User user2 = userService.findUserById(userId2);
         List<Message> messages = dialogService.getMessagesBetweenUsers(user1, user2);
         model.addAttribute("messages", messages);
-        return "messagesList"; // Предполагается, что у вас есть Thymeleaf шаблон messagesList.html
+        return "messagesList";
     }
 }

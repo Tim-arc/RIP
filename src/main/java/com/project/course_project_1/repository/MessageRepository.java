@@ -1,9 +1,7 @@
 package com.project.course_project_1.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.project.course_project_1.entity.Message;
-
-
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

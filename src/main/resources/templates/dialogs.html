@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Диалоги</title>
+    <link rel="stylesheet" th:href="@{/styles/style_main.css}"/>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="\static\styles\style_main.css"
+          th:href="@{/styles/style_main.css}">
+</head>
+<body>
+<div class="section">
+    <h1>Диалоги</h1>
+    <ul>
+        <li th:each="dialog : ${dialogs}">
+            <a th:href="@{/dialogs/{id}(id=${dialog.id})}">
+                <span th:text="${dialog.user1.username}">User1</span> -
+                <span th:text="${dialog.user2.username}">User2</span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

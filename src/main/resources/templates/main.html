@@ -46,6 +46,9 @@
                 <br>
                 <span th:text="${friend.username}">friend name</span>
             </a>
+            <form th:action="@{/dialogs/start/{friendId}(friendId=\${friend.id})}" method="post" style="display:inline;">
+                <button type="submit" class="button">Написать</button>
+            </form>
         </li>
     </ul>
 
@@ -74,6 +77,10 @@
 
     <form th:action="@{/users/main/delete/logs}" class="find_users">
         <button class="button">Очистить логи входа</button>
+    </form>
+
+    <form th:action="@{/dialogs}" class="find_users">
+        <button class="button">Диалоги</button>
     </form>
 
     <form th:action="@{/users/}" class="find_users">

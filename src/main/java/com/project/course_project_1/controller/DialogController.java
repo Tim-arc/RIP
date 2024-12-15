@@ -1,13 +1,17 @@
 package com.project.course_project_1.controller;
 
+import com.project.course_project_1.entity.Dialog;
 import com.project.course_project_1.entity.Message;
 import com.project.course_project_1.entity.User;
 import com.project.course_project_1.service.DialogService;
 import com.project.course_project_1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,21 +26,31 @@ public class DialogController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/dialogs/send")
-    public String sendMessage(@RequestParam Long senderId, @RequestParam Long receiverId, @RequestParam String content, Model model) {
-        User sender = userService.findUserById(senderId);
-        User receiver = userService.findUserById(receiverId);
-        Message message = dialogService.sendMessage(sender, receiver, content);
-        model.addAttribute("message", message);
-        return "messageSent"; // Предполагается, что у вас есть Thymeleaf шаблон messageSent.html
+    @GetMapping("/dialogs")
+    public String showDialogs(Model model) {
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User currentUser = userService.findUserByUsername(username);
+        List<Dialog> dialogs = dialogService.getDialogsForUser(currentUser.getId());
+        model.addAttribute("dialogs", dialogs);
+        return "dialogs";
     }
 
-    @GetMapping("/dialogs/between")
-    public String getMessagesBetweenUsers(@RequestParam Long userId1, @RequestParam Long userId2, Model model) {
-        User user1 = userService.findUserById(userId1);
-        User user2 = userService.findUserById(userId2);
-        List<Message> messages = dialogService.getMessagesBetweenUsers(user1, user2);
+    @GetMapping("/dialogs/{id}")
+    public String showChat(@PathVariable Long id, Model model) {
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User currentUser = userService.findUserByUsername(username);
+        Dialog dialog = dialogService.getDialogById(id);
+        List<Message> messages = dialogService.getMessagesBetweenUsers(dialog.getUser1(), dialog.getUser2());
+        model.addAttribute("dialog", dialog);
         model.addAttribute("messages", messages);
-        return "messagesList"; // Предполагается, что у вас есть Thymeleaf шаблон messagesList.html
+        model.addAttribute("currentUser", currentUser);
+        return "chat";
+    }
+
+    @PostMapping("/messages/send")
+    public String sendMessage(@RequestParam Long senderId, @RequestParam Long receiverId, @RequestParam String content, Model model) {
+        Message message = dialogService.sendMessage(senderId, receiverId, content);
+        model.addAttribute("message", message);
+        return "redirect:/dialogs/" + message.getDialog().getId();
     }
 }
