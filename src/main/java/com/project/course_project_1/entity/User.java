@@ -48,27 +48,38 @@ public class User implements UserDetails {
     @Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$", message = "Укажите, пожалуйста, корректный email")
     private String email;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_friends",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<User> friends;
+    private Set<User> friends = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "date_time_id")
     private Set<DateTime> loginTimes = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_image_id")
     private UserImage image;
 
+    @OneToMany(mappedBy = "user1", fetch = FetchType.LAZY)
+    private Set<Dialog> dialogs1 = new HashSet<>();
+
+    @OneToMany(mappedBy = "user2", fetch = FetchType.LAZY)
+    private Set<Dialog> dialogs2 = new HashSet<>();
+
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY)
+    private Set<Message> sentMessages = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY)
+    private Set<Message> receivedMessages = new HashSet<>();
 
     public User() {
     }
 
-    public User(@NonNull String username, @NonNull String password, @NonNull String lastname, @NonNull String name, @NonNull String phoneNumber, @NonNull String email, Set friends) {
+    public User(@NonNull String username, @NonNull String password, @NonNull String lastname, @NonNull String name, @NonNull String phoneNumber, @NonNull String email, Set<User> friends) {
         this.username = username;
         this.password = password;
         this.lastname = lastname;
@@ -78,20 +89,9 @@ public class User implements UserDetails {
         this.friends = friends;
     }
 
-    public Set<DateTime> getLoginTimes() {
-        return loginTimes;
-    }
-
-    public void setLoginTimes(Set<DateTime> loginTimes) {
-        this.loginTimes = loginTimes;
-    }
-
     public void setFriend(User friend) {
         friends.add(friend);
-    }
-
-    public Set<User> getFriends() {
-        return friends;
+        friend.getFriends().add(this);
     }
 
     @Override

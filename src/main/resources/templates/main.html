@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>КУРСОВОЙ ПРОЕКТ</title>
+    <title>РИП ПРОЕКТ</title>
     <link rel="stylesheet" th:href="@{/styles/style_main.css}"/>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="\static\styles\style_main.css"
@@ -46,7 +46,7 @@
                 <br>
                 <span th:text="${friend.username}">friend name</span>
             </a>
-            <form th:action="@{/dialogs/start/{friendId}(friendId=\${friend.id})}" method="post" style="display:inline;">
+            <form th:action="@{/dialogs/start/{friendId}(friendId=${friend.id})}" method="post" style="display:inline;">
                 <button type="submit" class="button">Написать</button>
             </form>
         </li>

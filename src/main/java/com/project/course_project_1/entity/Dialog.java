@@ -19,11 +19,11 @@ public class Dialog {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user1_id", nullable = false)
     private User user1;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user2_id", nullable = false)
     private User user2;
 
@@ -38,5 +38,25 @@ public class Dialog {
     public void addMessage(Message message) {
         messages.add(message);
         message.setDialog(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Dialog dialog = (Dialog) o;
+
+        if (id != null ? !id.equals(dialog.id) : dialog.id != null) return false;
+        if (!user1.equals(dialog.user1)) return false;
+        return user2.equals(dialog.user2);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + user1.hashCode();
+        result = 31 * result + user2.hashCode();
+        return result;
     }
 }

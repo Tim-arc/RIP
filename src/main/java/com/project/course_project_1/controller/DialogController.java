@@ -53,4 +53,13 @@ public class DialogController {
         model.addAttribute("message", message);
         return "redirect:/dialogs/" + message.getDialog().getId();
     }
+
+    @PostMapping("/dialogs/start/{friendId}")
+    public String startChat(@PathVariable Long friendId, Model model) {
+        String username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User currentUser = userService.findUserByUsername(username);
+        User friend = userService.findUserById(friendId);
+        Dialog dialog = dialogService.getDialog(currentUser, friend).orElseGet(() -> dialogService.createDialog(currentUser, friend));
+        return "redirect:/dialogs/" + dialog.getId();
+    }
 }
