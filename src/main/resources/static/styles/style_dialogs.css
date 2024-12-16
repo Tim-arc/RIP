@@ -1,0 +1,59 @@
+/* Общие стили для body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Стили для секции */
+.section {
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Стили для заголовка */
+.section h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+/* Стили для списка диалогов */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: left;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+ul li span {
+    display: inline;
+    margin-right: 5px;
+}

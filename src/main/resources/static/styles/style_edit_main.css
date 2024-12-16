@@ -12,7 +12,7 @@ body {
 
 /* Стили для секции */
 .section {
-    max-width: 400px;
+    max-width: 600px;
     width: 100%;
     padding: 20px;
     background-color: #fff;
@@ -31,41 +31,24 @@ body {
     font-size: 24px;
 }
 
-/* Стили для основного контента */
-.main {
+/* Стили для формы редактирования */
+.register_form {
     margin-bottom: 20px;
 }
 
-.no_account p {
-    margin: 0 0 20px;
-    font-size: 16px;
-}
-
-.no_account a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.no_account a:hover {
-    text-decoration: underline;
-}
-
-/* Стили для формы входа */
-.loginForm {
+.register_form .info {
     margin-bottom: 20px;
+    text-align: left;
 }
 
-.user_contacts {
-    margin-bottom: 20px;
-}
-
-.user_contacts label {
+.register_form label {
     display: block;
     margin-bottom: 5px;
     font-size: 16px;
 }
 
-.user_contacts .data {
+.register_form input[type="text"],
+.register_form input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -74,8 +57,16 @@ body {
     font-size: 16px;
 }
 
-/* Стили для кнопки входа */
-.sign_in .button {
+/* Стили для ошибок валидации */
+.validationError {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: left;
+}
+
+/* Стили для кнопки редактирования */
+.register_button {
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
@@ -83,15 +74,29 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    text-align: center;
 }
 
-.sign_in .button:hover {
+.register_button:hover {
     background-color: #0056b3;
 }
 
-/* Стили для сообщений */
-.message {
+/* Стили для кнопки выхода на главную */
+.sign_out {
     margin-top: 20px;
+    text-align: center;
+}
+
+.sign_out form input[type="submit"] {
+    padding: 10px 20px;
     font-size: 16px;
-    color: red;
+    color: #fff;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sign_out form input[type="submit"]:hover {
+    background-color: #c82333;
 }
