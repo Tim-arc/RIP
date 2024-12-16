@@ -52,12 +52,6 @@
         </li>
     </ul>
 
-<h3>Последнее время входа:</h3>
-        <ul>
-            <li class="contacts" th:each="time : ${login_times}">
-                <span th:text="${time}">login_time</span>
-            </li>
-        </ul>
 
 
 
@@ -75,9 +69,6 @@
         <button type="submit" class="button">Загрузить</button>
     </form>
 
-    <form th:action="@{/users/main/delete/logs}" class="find_users">
-        <button class="button">Очистить логи входа</button>
-    </form>
 
     <form th:action="@{/dialogs}" class="find_users">
         <button class="button">Диалоги</button>
